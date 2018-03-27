@@ -55,7 +55,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
   }
 
-  function segundoEstado() {
+  function terceiroEstado() {
     for (let i = 0; i < 16; i++) {
       setarInterface(i, 8);
     }
@@ -92,6 +92,9 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     })
   }
 
+  function segundoEstado(){
+    // exibir toda as imagens por um curto periodo de tempo
+  }
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -105,7 +108,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   c1.clickComecarJogo = function() {
     $('#btnComecar').click(function(){
       console.log("clicou o botao");
-      segundoEstado();
+      terceiroEstado();
       gerarRamdomFotos();
       clickFigura();
     });
