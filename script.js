@@ -2,11 +2,11 @@
   var imagens = ['img/facebook.png', 'img/android.png', 'img/chrome.png', 'img/firefox.png', 'img/html5.png', 'img/googleplus.png', 'img/twitter.png', 'img/windows.png', 'img/cross.png'];
   var posicoesImagens = [];
 
-/*
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                              funções auxiliares
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-*/
+  /*
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                funções auxiliares
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  */
 
   function criarPrimeiroEstado() {
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
@@ -23,6 +23,14 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     }
   }
 
+  function condicaoDoJogo(clicks) {
+    if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
+      return figuraCorreta();
+    }
+
+    figuraErrada(clicks);
+  }
+
   function gerarRamdomValues() {
     let min = 0;
     let max = 7;
@@ -30,31 +38,31 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  function gerarRamdomFotos(){
-    for(let i = 0; i < 16; i++){
-      do{
+  function gerarRamdomFotos() {
+    for (let i = 0; i < 16; i++) {
+      do {
         posicoesImagens[i] = gerarRamdomValues();
-      }while (repetido(posicoesImagens, i));
+      } while (repetido(posicoesImagens, i));
     }
     console.log(posicoesImagens);
   }
 
-  function stopClicks(){
+  function stopClicks() {
     $('.imagem').off('click');
   }
 
-  function repetido(array, indice){
+  function repetido(array, indice) {
     let copia = 0;
 
-    for(let j = 0; j < indice; j++){
-      if(array[j] === array[indice]){
+    for (let j = 0; j < indice; j++) {
+      if (array[j] === array[indice]) {
         copia++;
       }
     }
 
-    if(copia > 1){
+    if (copia > 1) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
@@ -73,42 +81,61 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   }
 
 
-  function clickDois(numClick){
-    if(numClick >= 3){
+  function clickDois(numClick) {
+    if (numClick >= 3) {
       return true;
     }
     return false;
   }
 
-  function clickFigura(){
+  function clickFigura() {
     let clicks = [];
 
-    $('.imagem').click(function(){
+    $('.imagem').click(function() {
       let id = $(this).attr('id');
       clicks.push(id);
 
-      if(!clickDois(clicks.length)){
+      if (!clickDois(clicks.length)) {
         setarInterface(id, posicoesImagens[id]);
+
         console.log(id);
-      }else{
+      } else {
         stopClicks();
+
+        condicaoDoJogo(clicks);
       }
     })
   }
 
 
-  function exibirPosicoes(){
+  function exibirPosicoes() {
     stopClicks();
-    for(let i = 0; i < 16; i++){
+    for (let i = 0; i < 16; i++) {
       setarInterface(i, posicoesImagens[i]);
     }
   }
 
-  function segundoEstado(){
+  function segundoEstado() {
     // exibir toda as imagens por um curto periodo de tempo
     exibirPosicoes();
     setTimeout(terceiroEstado, 2000);
   }
+
+  function figuraCorreta() {
+    clickFigura();
+  }
+
+  function figuraErrada(clicks) {
+    setTimeout(retornarEstado(clicks), 1000);
+     // será que vai ser o suficiente?
+  }
+
+  function retornarEstado(clicks) {
+    setarInterface(clicks[0], 8);
+    setarInterface(clicks[1], 8);
+    clickFigura();
+  }
+
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -120,7 +147,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   let c1 = app.getComponente('c1');
 
   c1.clickComecarJogo = function() {
-    $('#btnComecar').click(function(){
+    $('#btnComecar').click(function() {
       console.log("clicou o botao");
       gerarRamdomFotos();
       segundoEstado();

@@ -14,6 +14,37 @@
 
   criarInterface();
 
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxx funções para condições de jogo xxxxxxxxxxxxxxxxxxx
+*/
+  function condicaoDoJogo(clicks){
+    if(posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]){
+      return figuraCorreta();
+    }
+
+    figuraErrada(clicks);
+  }
+
+  function figuraCorreta(){
+    //não faz nada
+  }
+
+  function figuraErrada(clicks){
+    stopClicks();
+    setTimeout(retornarEstado(clicks));
+    clickFigura(); // será que vai ser o suficiente?
+  }
+
+  function retornarEstado(clicks){
+    setarInterface(clicks[0], 8);
+    setarInterface(clicks[0], 8);
+  }
+
+  /*
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxx funções para condições de jogo xxxxxxxxxxxxxxxxxxx
+  */
+
+
   function gerarRamdomValues() {
     let min = 0;
     let max = 7;
