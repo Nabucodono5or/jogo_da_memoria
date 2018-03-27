@@ -36,8 +36,6 @@
         console.log(id);
       }else{
         $('.imagem').off('click');
-        // apergunta é como reabilitar o onclick sem ser
-        // de forma recursiva.
       }
     })
   }
