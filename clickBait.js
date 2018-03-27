@@ -1,6 +1,6 @@
 (function(){
   var imagens = ['img/facebook.png','img/android.png','img/chrome.png','img/firefox.png','img/html5.png','img/googleplus.png','img/twitter.png','img/windows.png','img/cross.png'];
-  var posicoesImagens = [];
+  var posicoesImagens = [1, 1, 2, 7, 6, 5, 5, 4, 6, 4];
 
   function criarInterface(){
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
@@ -22,6 +22,11 @@
     return false;
   }
 
+  function setarInterface(pos, nrImagem) {
+    console.log("chamada a interface");
+    let v = "#" + pos;
+    $(v).children().attr('src', imagens[nrImagem]);
+  }
 
   let c1 = app.getComponente('c1');
 
@@ -33,6 +38,7 @@
       clicks++;
 
       if(!clickDois(clicks)){
+        setarInterface(id, posicoesImagens[id]);
         console.log(id);
       }else{
         $('.imagem').off('click');

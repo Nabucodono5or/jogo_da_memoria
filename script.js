@@ -84,6 +84,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       clicks++;
 
       if(!clickDois(clicks)){
+        setarInterface(id, posicoesImagens[id]);
         console.log(id);
       }else{
         $('.imagem').off('click');
