@@ -81,13 +81,13 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   }
 
   function clickFigura(){
-    let clicks = 0;
+    let clicks = [];
 
     $('.imagem').click(function(){
       let id = $(this).attr('id');
-      clicks++;
+      clicks.push(id);
 
-      if(!clickDois(clicks)){
+      if(!clickDois(clicks.length)){
         setarInterface(id, posicoesImagens[id]);
         console.log(id);
       }else{
