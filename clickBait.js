@@ -12,6 +12,20 @@
     }
   }
 
+  function stopClicks(){
+    $('.imagem').off('click');
+  }
+
+  setTimeout(exibirPosicoes, 2000);
+
+  function exibirPosicoes(){
+    stopClicks();
+    for(let i = 0; i < 16; i++){
+      setarInterface(i, posicoesImagens[i]);
+    }
+  }
+
+
   criarInterface();
   clickFigura();
 

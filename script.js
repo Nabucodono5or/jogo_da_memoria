@@ -39,6 +39,10 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     console.log(posicoesImagens);
   }
 
+  function stopClicks(){
+    $('.imagem').off('click');
+  }
+
   function repetido(array, indice){
     let copia = 0;
 
@@ -87,13 +91,23 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         setarInterface(id, posicoesImagens[id]);
         console.log(id);
       }else{
-        $('.imagem').off('click');
+        stopClicks();
       }
     })
   }
 
+
+  function exibirPosicoes(){
+    stopClicks();
+    for(let i = 0; i < 16; i++){
+      setarInterface(i, posicoesImagens[i]);
+    }
+  }
+
   function segundoEstado(){
     // exibir toda as imagens por um curto periodo de tempo
+    exibirPosicoes();
+    setTimeout(terceiroEstado, 2000);
   }
 
   /*
@@ -108,8 +122,8 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   c1.clickComecarJogo = function() {
     $('#btnComecar').click(function(){
       console.log("clicou o botao");
-      terceiroEstado();
       gerarRamdomFotos();
+      segundoEstado();
       clickFigura();
     });
   }
