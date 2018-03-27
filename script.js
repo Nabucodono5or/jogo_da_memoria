@@ -15,9 +15,9 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
     let i = j = 0;
     while (i < 8) {
-      $('#pacote').append("<div id=" + j + "><img src=" + imagens[i] + "></div>");
+      $('#pacote').append("<div class='imagem' id=" + j + "><img src=" + imagens[i] + "></div>");
       j++;
-      $('#pacote').append("<div id=" + j + "><img src=" + imagens[i] + "></div>");
+      $('#pacote').append("<div class='imagem' id=" + j + "><img src=" + imagens[i] + "></div>");
       i++;
       j++;
     }
@@ -68,6 +68,30 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     $(v).children().attr('src', imagens[nrImagem]);
   }
 
+
+  function clickDois(numClick){
+    if(numClick >= 3){
+      return true;
+    }
+    return false;
+  }
+
+  function clickFigura(){
+    let clicks = 0;
+
+    $('.imagem').click(function(){
+      let id = $(this).attr('id');
+      clicks++;
+
+      if(!clickDois(clicks)){
+        console.log(id);
+      }else{
+        $('.imagem').off('click');
+      }
+    })
+  }
+
+
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                 criação de componente
@@ -82,6 +106,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
       console.log("clicou o botao");
       segundoEstado();
       gerarRamdomFotos();
+      clickFigura();
     });
   }
 
