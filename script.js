@@ -23,13 +23,26 @@
     }
   }
 
-  function condicaoDoJogo(clicks) {
-    if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
-      return figuraCorreta();
-    }
-
-    figuraErrada(clicks);
+  // função  "mão para toda obra"
+  function setarInterface(pos, nrImagem) {
+    console.log("chamada a interface");
+    let v = "#" + pos;
+    $(v).children().attr('src', imagens[nrImagem]);
   }
+
+  function stopClicks() {
+    $('.imagem').css("pointer-events", "none");
+  }
+
+  function reativaClicks() {
+    $('.imagem').css("pointer-events", "auto");
+  }
+
+  /*
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                funções que geram as fotos
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  */
 
   function gerarRamdomValues() {
     let min = 0;
@@ -45,14 +58,6 @@
       } while (repetido(posicoesImagens, i));
     }
     console.log(posicoesImagens);
-  }
-
-  function stopClicks() {
-    $('.imagem').css("pointer-events", "none");
-  }
-
-  function reativaClicks() {
-    $('.imagem').css("pointer-events", "auto");
   }
 
   function repetido(array, indice) {
@@ -77,14 +82,6 @@
     }
   }
 
-  // função  "mão para toda obra"
-  function setarInterface(pos, nrImagem) {
-    console.log("chamada a interface");
-    let v = "#" + pos;
-    $(v).children().attr('src', imagens[nrImagem]);
-  }
-
-
   function clickDois(numClick) {
     if (numClick >= 3) {
       return true;
@@ -95,7 +92,7 @@
   function clickFigura() {
     let clicks = [];
 
-    $('.imagem').click(function() {
+    $('.imagem').on("click", function() {
       let id = $(this).attr('id');
       clicks.push(id);
 
@@ -125,8 +122,23 @@
     setTimeout(terceiroEstado, 2000);
   }
 
+  /*
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                avalia condição do jogo
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  */
+
+  function condicaoDoJogo(clicks) {
+    if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
+      return figuraCorreta();
+    }
+
+    figuraErrada(clicks);
+  }
+
   function figuraCorreta() {
-    clickFigura();
+    //clickFigura();
+    reativaClicks();
   }
 
   function figuraErrada(clicks) {
@@ -137,7 +149,8 @@
   function retornarEstado(clicks) {
     setarInterface(clicks[0], 8);
     setarInterface(clicks[1], 8);
-    clickFigura();
+    reativaClicks();
+    //clickFigura();
   }
 
 
