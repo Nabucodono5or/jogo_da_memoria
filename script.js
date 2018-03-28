@@ -160,6 +160,19 @@ function retornarEstado(primeiro, segundo) {
 
 */
 
+  function condicaoDoJogo(num1, num2){
+    if(posicoesImagens[num1] == posicoesImagens[num2]){
+      reativaClicks();
+    }else {
+      setTimeout(function functionName() {
+        stopClicks();
+        setarInterface(num1, 8);
+        setarInterface(num2, 8);
+        reativaClicks();
+      }, 2000);
+
+    }
+  }
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -187,7 +200,7 @@ function retornarEstado(primeiro, segundo) {
       if(clicks.length == 2){
         stopClicks();
         //setTimeout(condicaoDoJogo(clicks), 3000);
-        //condicaoDoJogo(clicks);
+        condicaoDoJogo(clicks[0], clicks[1]);
         clicks = [];
       }
 /*
