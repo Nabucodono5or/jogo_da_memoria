@@ -1,6 +1,7 @@
 (function() {
   var imagens = ['img/facebook.png', 'img/android.png', 'img/chrome.png', 'img/firefox.png', 'img/html5.png', 'img/googleplus.png', 'img/twitter.png', 'img/windows.png', 'img/cross.png'];
   var posicoesImagens = [];
+  var jogadas = 0;
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -108,62 +109,63 @@
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   */
 
-/*
-function clickFigura() {
-  let clicks = [];
+  /*
+  function clickFigura() {
+    let clicks = [];
 
-  $('.imagem').on("click", function() {
-    let id = $(this).attr('id');
-    clicks.push(id);
+    $('.imagem').on("click", function() {
+      let id = $(this).attr('id');
+      clicks.push(id);
 
-    if (!clickDois(clicks.length)) {
-      setarInterface(id, posicoesImagens[id]);
+      if (!clickDois(clicks.length)) {
+        setarInterface(id, posicoesImagens[id]);
 
-      console.log(id);
-    } else {
-      stopClicks();
-      condicaoDoJogo(clicks);
-      clicks = [];
-    }
-  })
-}
-
-*/
-
-
-/*
-function condicaoDoJogo(clicks) {
-  if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
-    reativaClicks();
-    return;
+        console.log(id);
+      } else {
+        stopClicks();
+        condicaoDoJogo(clicks);
+        clicks = [];
+      }
+    })
   }
 
-  setTimeout(retornarEstado(clicks[0], clicks[1]), 2000);
-}
+  */
 
-function figuraCorreta() {
-  //clickFigura();
-  reativaClicks();
-}
 
-function figuraErrada(clicks) {
-  setTimeout(retornarEstado(clicks), 3000);
-   // será que vai ser o suficiente?
-}
-
-function retornarEstado(primeiro, segundo) {
-  setarInterface(primeiro, 8);
-  setarInterface(segundo, 8);
-  reativaClicks();
-  //clickFigura();
-}
-
-*/
-
-  function condicaoDoJogo(num1, num2){
-    if(posicoesImagens[num1] == posicoesImagens[num2]){
+  /*
+  function condicaoDoJogo(clicks) {
+    if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
       reativaClicks();
-    }else {
+      return;
+    }
+
+    setTimeout(retornarEstado(clicks[0], clicks[1]), 2000);
+  }
+
+  function figuraCorreta() {
+    //clickFigura();
+    reativaClicks();
+  }
+
+  function figuraErrada(clicks) {
+    setTimeout(retornarEstado(clicks), 3000);
+     // será que vai ser o suficiente?
+  }
+
+  function retornarEstado(primeiro, segundo) {
+    setarInterface(primeiro, 8);
+    setarInterface(segundo, 8);
+    reativaClicks();
+    //clickFigura();
+  }
+
+  */
+
+  function condicaoDoJogo(num1, num2) {
+    if (posicoesImagens[num1] == posicoesImagens[num2]) {
+      fimDeJogo();
+      reativaClicks();
+    } else {
       setTimeout(function functionName() {
         stopClicks();
         setarInterface(num1, 8);
@@ -176,6 +178,19 @@ function retornarEstado(primeiro, segundo) {
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                condição de fim de jogo
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  */
+
+  function fimDeJogo() {
+    jogadas++;
+    if(jogadas >= 8){
+      alert("acabou o jogo");
+    }
+  }
+
+  /*
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                 criação de componente
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   */
@@ -183,36 +198,36 @@ function retornarEstado(primeiro, segundo) {
   criarPrimeiroEstado();
   let c1 = app.getComponente('c1');
 
-// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  c1.clickImagem = function(){
+  c1.clickImagem = function() {
     let clicks = [];
 
     $('.imagem').on("click", function() {
       let id = $(this).attr('id');
       setarInterface(id, posicoesImagens[id]);
 
-      if(id != clicks[0]){
+      if (id != clicks[0]) {
         clicks.push(id);
       }
 
       console.log(clicks);
-      if(clicks.length == 2){
+      if (clicks.length == 2) {
         stopClicks();
         //setTimeout(condicaoDoJogo(clicks), 3000);
         condicaoDoJogo(clicks[0], clicks[1]);
         clicks = [];
       }
-/*
-if (clickDois(clicks.length)) {
-  stopClicks();
-  condicaoDoJogo(clicks);
-  clicks = [];
-} else {
-  console.log(id);
-}
+      /*
+      if (clickDois(clicks.length)) {
+        stopClicks();
+        condicaoDoJogo(clicks);
+        clicks = [];
+      } else {
+        console.log(id);
+      }
 
-*/
+      */
     })
   };
 
@@ -222,6 +237,7 @@ if (clickDois(clicks.length)) {
       gerarRamdomFotos();
       segundoEstado();
       reativaClicks();
+      jogadas = 0;
       //clickFigura();
       c1.clickImagem();
     });
