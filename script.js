@@ -83,7 +83,7 @@
   }
 
   function clickDois(numClick) {
-    if (numClick >= 3) {
+    if (numClick == 2) {
       return true;
     }
     return false;
@@ -131,30 +131,34 @@ function clickFigura() {
 */
 
 
-  function condicaoDoJogo(clicks) {
-    if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
-      return figuraCorreta();
-    }
-
-    figuraErrada(clicks);
-  }
-
-  function figuraCorreta() {
-    //clickFigura();
+/*
+function condicaoDoJogo(clicks) {
+  if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
     reativaClicks();
+    return;
   }
 
-  function figuraErrada(clicks) {
-    setTimeout(retornarEstado(clicks), 1000);
-     // será que vai ser o suficiente?
-  }
+  setTimeout(retornarEstado(clicks[0], clicks[1]), 2000);
+}
 
-  function retornarEstado(clicks) {
-    setarInterface(clicks[0], 8);
-    setarInterface(clicks[1], 8);
-    reativaClicks();
-    //clickFigura();
-  }
+function figuraCorreta() {
+  //clickFigura();
+  reativaClicks();
+}
+
+function figuraErrada(clicks) {
+  setTimeout(retornarEstado(clicks), 3000);
+   // será que vai ser o suficiente?
+}
+
+function retornarEstado(primeiro, segundo) {
+  setarInterface(primeiro, 8);
+  setarInterface(segundo, 8);
+  reativaClicks();
+  //clickFigura();
+}
+
+*/
 
 
   /*
@@ -173,17 +177,29 @@ function clickFigura() {
 
     $('.imagem').on("click", function() {
       let id = $(this).attr('id');
-      clicks.push(id);
+      setarInterface(id, posicoesImagens[id]);
 
-      if (!clickDois(clicks.length)) {
-        setarInterface(id, posicoesImagens[id]);
+      if(id != clicks[0]){
+        clicks.push(id);
+      }
 
-        console.log(id);
-      } else {
+      console.log(clicks);
+      if(clicks.length == 2){
         stopClicks();
-        condicaoDoJogo(clicks);
+        //setTimeout(condicaoDoJogo(clicks), 3000);
+        //condicaoDoJogo(clicks);
         clicks = [];
       }
+/*
+if (clickDois(clicks.length)) {
+  stopClicks();
+  condicaoDoJogo(clicks);
+  clicks = [];
+} else {
+  console.log(id);
+}
+
+*/
     })
   };
 
