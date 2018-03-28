@@ -89,26 +89,6 @@
     return false;
   }
 
-  function clickFigura() {
-    let clicks = [];
-
-    $('.imagem').on("click", function() {
-      let id = $(this).attr('id');
-      clicks.push(id);
-
-      if (!clickDois(clicks.length)) {
-        setarInterface(id, posicoesImagens[id]);
-
-        console.log(id);
-      } else {
-        stopClicks();
-
-        condicaoDoJogo(clicks);
-      }
-    })
-  }
-
-
   function exibirPosicoes() {
     stopClicks();
     for (let i = 0; i < 16; i++) {
@@ -127,6 +107,29 @@
                                 avalia condição do jogo
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   */
+
+/*
+function clickFigura() {
+  let clicks = [];
+
+  $('.imagem').on("click", function() {
+    let id = $(this).attr('id');
+    clicks.push(id);
+
+    if (!clickDois(clicks.length)) {
+      setarInterface(id, posicoesImagens[id]);
+
+      console.log(id);
+    } else {
+      stopClicks();
+      condicaoDoJogo(clicks);
+      clicks = [];
+    }
+  })
+}
+
+*/
+
 
   function condicaoDoJogo(clicks) {
     if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
@@ -163,13 +166,35 @@
   criarPrimeiroEstado();
   let c1 = app.getComponente('c1');
 
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  c1.clickImagem = function(){
+    let clicks = [];
+
+    $('.imagem').on("click", function() {
+      let id = $(this).attr('id');
+      clicks.push(id);
+
+      if (!clickDois(clicks.length)) {
+        setarInterface(id, posicoesImagens[id]);
+
+        console.log(id);
+      } else {
+        stopClicks();
+        condicaoDoJogo(clicks);
+        clicks = [];
+      }
+    })
+  };
+
   c1.clickComecarJogo = function() {
     $('#btnComecar').click(function() {
       console.log("clicou o botao");
       gerarRamdomFotos();
       segundoEstado();
       reativaClicks();
-      clickFigura();
+      //clickFigura();
+      c1.clickImagem();
     });
   }
 
