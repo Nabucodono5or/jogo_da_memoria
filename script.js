@@ -2,6 +2,8 @@
   var imagens = ['img/facebook.png', 'img/android.png', 'img/chrome.png', 'img/firefox.png', 'img/html5.png', 'img/googleplus.png', 'img/twitter.png', 'img/windows.png', 'img/cross.png'];
   var posicoesImagens = [];
   var jogadas = 0;
+  var inicio;
+  var tabelaDeJogos = [];
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -83,12 +85,15 @@
     }
   }
 
-  function clickDois(numClick) {
-    if (numClick == 2) {
-      return true;
-    }
-    return false;
+/*
+function clickDois(numClick) {
+  if (numClick == 2) {
+    return true;
   }
+  return false;
+}
+
+*/
 
   function exibirPosicoes() {
     stopClicks();
@@ -183,12 +188,44 @@
   */
 
   function fimDeJogo() {
+    let fotosReveladas = 0;
+    for (let i = 0; i < 16; i++) {
+/*
+if( != 8){
+  fotosReveladas++;
+}
+*/
+      if(fotosReveladas >= 16){
+        let tempo = determinarTempo();
+        alert("acabou o jogo em " + tempo + " segundos.");
+        tabelaDeJogos.push(tempo);
+        console.log(tabelaDeJogos);
+      }
+  }
+    /*
+    for (let i = 0; i < 16; i++) {
+      do {
+        posicoesImagens[i] = gerarRamdomValues();
+      } while (repetido(posicoesImagens, i));
+
+
+
+
     jogadas++;
     if(jogadas >= 8){
-      alert("acabou o jogo");
+      let tempo = determinarTempo();
+      alert("acabou o jogo em " + tempo + " segundos.");
+      tabelaDeJogos.push(tempo);
+      console.log(tabelaDeJogos);
+      jogadas = 0;
     }
+    */
   }
 
+  function determinarTempo(){
+    let millis = Date.now() - inicio;
+    return Math.floor(millis/1000);
+  }
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                 criação de componente
@@ -233,11 +270,10 @@
 
   c1.clickComecarJogo = function() {
     $('#btnComecar').click(function() {
-      console.log("clicou o botao");
+      inicio = Date.now();
       gerarRamdomFotos();
       segundoEstado();
       reativaClicks();
-      jogadas = 0;
       //clickFigura();
       c1.clickImagem();
     });
