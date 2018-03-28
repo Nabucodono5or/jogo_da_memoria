@@ -48,7 +48,11 @@
   }
 
   function stopClicks() {
-    $('.imagem').off('click');
+    $('.imagem').css("pointer-events", "none");
+  }
+
+  function reativaClicks() {
+    $('.imagem').css("pointer-events", "auto");
   }
 
   function repetido(array, indice) {
@@ -151,6 +155,7 @@
       console.log("clicou o botao");
       gerarRamdomFotos();
       segundoEstado();
+      reativaClicks();
       clickFigura();
     });
   }
