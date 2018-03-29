@@ -4,6 +4,7 @@
   var tabelaDeJogos = [];
   var idsDescartadas = [];
   var jogadas = 0;
+  var inicio;
 
   $(document).ready(function() {
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
@@ -60,7 +61,7 @@
       jogadas++
 
       if (jogadas >= 8) {
-        //let tempo = determinarTempo();
+        let tempo = Math.floor((Date.now() - inicio) / 1000); //determinarTempo();
         alert("acabou o jogo em " + tempo + " segundos.");
         tabelaDeJogos.push(tempo);
       }
@@ -110,6 +111,7 @@
 
       idsDescartadas = [];
       jogadas = 0;
+      inicio = Date.now();
 
       for (let i = 0; i < 16; i++) {
         do {
