@@ -2,6 +2,7 @@
   var imagens = ['img/facebook.png', 'img/android.png', 'img/chrome.png', 'img/firefox.png', 'img/html5.png', 'img/googleplus.png', 'img/twitter.png', 'img/windows.png', 'img/cross.png'];
   var posicoesImagens = [];
   var tabelaDeJogos = [];
+  var idsDescartadas = [];
 
   $(document).ready(function() {
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
@@ -45,24 +46,44 @@
       }
     }
 
-    if (copia > 1) {
-      return true;
-    } else {
-      return false;
-    }
+    if (copia > 1) { return true; } else { return false; }
   }
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  //                       função do click das cartas
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  let c1 = app.getComponente('c1');
+
+  c1.clickImagem = function() {
+    let clicks = [];
+
+    $('.imagem').on("click", function() {
+      let id = $(this).attr('id');
+
+      if(!idsDescartadas.includes(id)){
+        setarInterface(id, posicoesImagens[id]);
+
+        if (id != clicks[0]) {
+          clicks.push(id);
+        }
+
+        if (clicks.length == 2) {
+          stopClicks();
+          //condicaoDoJogo(clicks[0], clicks[1]);
+          clicks = [];
+        }
+      }
+    });
+  };
 
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   //                       função do click de inicio de jogo
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  let c1 = app.getComponente('c1');
-
   c1.clickComecarJogo = function() {
     $('#btnComecar').on("click", function() {
 
       if (tabelaDeJogos.length == 0) {
-        //c1.clickImagem();
+        c1.clickImagem();
       }
 
       for (let i = 0; i < 16; i++) {
