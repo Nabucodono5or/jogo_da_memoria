@@ -6,7 +6,7 @@
   var tabelaDeJogos = [];
   var idsDescartadas = [];
 
-  function criarPrimeiroEstado() {
+  $(document).ready(function() {
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
     $('#principal').append('<div id="botao" class="container"><button id="btnComecar" type="button" name="button">Começar novo jogo</button></div>');
     $('#principal').append('<div id="pacote" class="container"></div>');
@@ -19,7 +19,8 @@
       i++;
       j++;
     }
-  }
+    c1.clickComecarJogo();
+  });
 
   function setarInterface(pos, nrImagem) {
     console.log("chamada a interface");
@@ -107,7 +108,7 @@
   function fimDeJogo() {
     jogadas++;
 
-    if(jogadas >= 8){
+    if (jogadas >= 8) {
       let tempo = determinarTempo();
       alert("acabou o jogo em " + tempo + " segundos.");
       tabelaDeJogos.push(tempo);
@@ -115,16 +116,16 @@
     }
   }
 
-  function determinarTempo(){
+  function determinarTempo() {
     let millis = Date.now() - inicio;
-    return Math.floor(millis/1000);
+    return Math.floor(millis / 1000);
   }
 
 
   function idNaoEstaDescartada(id) {
-    if(idsDescartadas.length > 0){
-      for(let i = 0; i < idsDescartadas.length; i++){
-        if(id == idsDescartadas[i]){
+    if (idsDescartadas.length > 0) {
+      for (let i = 0; i < idsDescartadas.length; i++) {
+        if (id == idsDescartadas[i]) {
           return false;
         }
       }
@@ -133,7 +134,6 @@
     return true;
   }
 
-  criarPrimeiroEstado();
   let c1 = app.getComponente('c1');
 
   c1.clickImagem = function() {
@@ -142,7 +142,7 @@
     $('.imagem').on("click", function() {
       let id = $(this).attr('id');
 
-      if(idNaoEstaDescartada(id)){
+      if (idNaoEstaDescartada(id)) {
         setarInterface(id, posicoesImagens[id]);
 
         if (id != clicks[0]) {
@@ -160,9 +160,9 @@
   };
 
   c1.clickComecarJogo = function() {
-    $('#btnComecar').on("click",function() {
+    $('#btnComecar').on("click", function() {
 
-      if(tabelaDeJogos.length == 0){
+      if (tabelaDeJogos.length == 0) {
         c1.clickImagem();
       }
 
@@ -175,7 +175,6 @@
     });
   }
 
-  c1.clickComecarJogo();
 })();
 
 //app.inicio();
