@@ -1,37 +1,13 @@
 (function(){
-  var posicoesImagens = [];
+  var idsDescartadas = [];
 
-  function gerarRamdomValues() {
-    let min = 0;
-    let max = 7;
+  let num1 = 3;
+  let num2 = 5;
 
-    return Math.round(Math.random() * (max - min) + min);
-  }
+  idsDescartadas.splice(0,0, num1, num2);
 
-  function repetido(array, indice){
-    let copia = 0;
-
-    for(let j = 0; j < indice; j++){
-      if(array[j] === array[indice]){
-        copia++;
-      }
-    }
-
-    if(copia > 1){
-      return true;
-    }else {
-      return false;
-    }
-  }
-
-  function gerarRamdomFotos(){
-    for(let i = 0; i < 16; i++){
-      do {
-        posicoesImagens[i] = gerarRamdomValues();
-      } while (repetido(posicoesImagens, i));
-    }
-    console.log(posicoesImagens);
-  }
-
-  gerarRamdomFotos();
+  console.log(idsDescartadas);
+  idsDescartadas.splice(0,0, 10, 8);
+  console.log(idsDescartadas);
+  
 })();

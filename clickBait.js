@@ -3,6 +3,7 @@
   var posicoesImagens = [];
   var tabelaDeJogos = [];
   var idsDescartadas = [];
+  var jogadas = 0;
 
   $(document).ready(function() {
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
@@ -53,13 +54,34 @@
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   let c1 = app.getComponente('c1');
 
+  function condicaoDoJogo(num1, num2) {
+    if (posicoesImagens[num1] == posicoesImagens[num2]) {
+      idsDescartadas.splice(0,0, num1, num2);
+      jogadas++
+
+      if (jogadas >= 8) {
+        //let tempo = determinarTempo();
+        alert("acabou o jogo em " + tempo + " segundos.");
+        tabelaDeJogos.push(tempo);
+      }
+
+      reativaClicks();
+    } else {
+      setTimeout(function() {
+        setarInterface(num1, 8);
+        setarInterface(num2, 8);
+        reativaClicks();
+      }, 2000);
+    }
+  }
+
   c1.clickImagem = function() {
     let clicks = [];
 
     $('.imagem').on("click", function() {
       let id = $(this).attr('id');
 
-      if(!idsDescartadas.includes(id)){
+      if(!idsDescartadas.includes(id)){ // pode gerar bug ficar de olho
         setarInterface(id, posicoesImagens[id]);
 
         if (id != clicks[0]) {
@@ -68,7 +90,7 @@
 
         if (clicks.length == 2) {
           stopClicks();
-          //condicaoDoJogo(clicks[0], clicks[1]);
+          condicaoDoJogo(clicks[0], clicks[1]);
           clicks = [];
         }
       }
@@ -86,6 +108,9 @@
         c1.clickImagem();
       }
 
+      idsDescartadas = [];
+      jogadas = 0;
+
       for (let i = 0; i < 16; i++) {
         do {
           posicoesImagens[i] = Math.round(Math.random() * (7 - 0) + 0); //alterar isso
@@ -93,7 +118,7 @@
         stopClicks();
         setarInterface(i, posicoesImagens[i]);
       }
-      // exibePosições
+
       setTimeout(function() {
         for (let i = 0; i < 16; i++) {
           setarInterface(i, 8);
@@ -102,5 +127,4 @@
       reativaClicks();
     });
   }
-
 })();
