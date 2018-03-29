@@ -188,38 +188,15 @@ function clickDois(numClick) {
   */
 
   function fimDeJogo() {
-    let fotosReveladas = 0;
-    for (let i = 0; i < 16; i++) {
-/*
-if( != 8){
-  fotosReveladas++;
-}
-*/
-      if(fotosReveladas >= 16){
-        let tempo = determinarTempo();
-        alert("acabou o jogo em " + tempo + " segundos.");
-        tabelaDeJogos.push(tempo);
-        console.log(tabelaDeJogos);
-      }
-  }
-    /*
-    for (let i = 0; i < 16; i++) {
-      do {
-        posicoesImagens[i] = gerarRamdomValues();
-      } while (repetido(posicoesImagens, i));
-
-
-
-
     jogadas++;
+
     if(jogadas >= 8){
       let tempo = determinarTempo();
       alert("acabou o jogo em " + tempo + " segundos.");
       tabelaDeJogos.push(tempo);
       console.log(tabelaDeJogos);
-      jogadas = 0;
+      //jogadas = 0;
     }
-    */
   }
 
   function determinarTempo(){
@@ -269,13 +246,18 @@ if( != 8){
   };
 
   c1.clickComecarJogo = function() {
-    $('#btnComecar').click(function() {
+    $('#btnComecar').on("click",function() {
+
+      if(tabelaDeJogos.length == 0){
+        c1.clickImagem();
+      }
+
+      jogadas = 0;
       inicio = Date.now();
       gerarRamdomFotos();
       segundoEstado();
       reativaClicks();
       //clickFigura();
-      c1.clickImagem();
     });
   }
 
