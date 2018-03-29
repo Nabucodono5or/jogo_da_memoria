@@ -19,9 +19,10 @@
       i++;
       j++;
     }
+    $('#principal').append('<div id="rodape" class="container"><button id="btnExibirTabelaResultado" type="button" name="button" onclick="app.c1.ClickTabelaDeJogos()">Exibir tabela de resultados</button></div>');
+
     c1.clickComecarJogo();
   });
-
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 //                                funções reutilizáveis
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -97,6 +98,18 @@
       }
     });
   };
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  //                                funções da tabela
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+    c1.ClickTabelaDeJogos = function() {
+      console.log("click em tabela");
+      if(tabelaDeJogos.length > 0){
+        for(let i = 0; i < tabelaDeJogos.length; i++){
+          $('#rodape').append("<p> Jogo 1: " + tabelaDeJogos[i] + "segundos" + "<p>");
+        }
+      }
+    }
 
   // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   //                       função do click de inicio de jogo
