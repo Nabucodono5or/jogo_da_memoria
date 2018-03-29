@@ -4,6 +4,7 @@
   var jogadas = 0;
   var inicio;
   var tabelaDeJogos = [];
+  var idsDescartadas = [];
 
   /*
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -168,6 +169,9 @@ function clickDois(numClick) {
 
   function condicaoDoJogo(num1, num2) {
     if (posicoesImagens[num1] == posicoesImagens[num2]) {
+      idsDescartadas.push(num1);
+      idsDescartadas.push(num2);
+
       fimDeJogo();
       reativaClicks();
     } else {
@@ -209,28 +213,46 @@ function clickDois(numClick) {
   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   */
 
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  function idNaoEstaDescartada(id) {
+    if(idsDescartadas.length > 0){
+      for(let i = 0; i < idsDescartadas.length; i++){
+        if(id == idsDescartadas[i]){
+          return false;
+        }
+      }  
+    }
+
+    return true;
+  }
+
+  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
   criarPrimeiroEstado();
   let c1 = app.getComponente('c1');
 
-  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
   c1.clickImagem = function() {
     let clicks = [];
 
     $('.imagem').on("click", function() {
       let id = $(this).attr('id');
-      setarInterface(id, posicoesImagens[id]);
 
-      if (id != clicks[0]) {
-        clicks.push(id);
-      }
+      if(idNaoEstaDescartada(id)){
+        setarInterface(id, posicoesImagens[id]);
 
-      console.log(clicks);
-      if (clicks.length == 2) {
-        stopClicks();
-        //setTimeout(condicaoDoJogo(clicks), 3000);
-        condicaoDoJogo(clicks[0], clicks[1]);
-        clicks = [];
+        if (id != clicks[0]) {
+          clicks.push(id);
+        }
+
+        console.log(clicks);
+        if (clicks.length == 2) {
+          stopClicks();
+          //setTimeout(condicaoDoJogo(clicks), 3000);
+          condicaoDoJogo(clicks[0], clicks[1]);
+          clicks = [];
+        }
       }
       /*
       if (clickDois(clicks.length)) {
@@ -252,6 +274,7 @@ function clickDois(numClick) {
         c1.clickImagem();
       }
 
+      idsDescartadas = [];
       jogadas = 0;
       inicio = Date.now();
       gerarRamdomFotos();
