@@ -6,12 +6,6 @@
   var tabelaDeJogos = [];
   var idsDescartadas = [];
 
-  /*
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                funções auxiliares
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  */
-
   function criarPrimeiroEstado() {
     $('#principal').append('<header id="titulo"><h1>Jogo da Memória</h1> </header>');
     $('#principal').append('<div id="botao" class="container"><button id="btnComecar" type="button" name="button">Começar novo jogo</button></div>');
@@ -27,7 +21,6 @@
     }
   }
 
-  // função  "mão para toda obra"
   function setarInterface(pos, nrImagem) {
     console.log("chamada a interface");
     let v = "#" + pos;
@@ -41,12 +34,6 @@
   function reativaClicks() {
     $('.imagem').css("pointer-events", "auto");
   }
-
-  /*
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                funções que geram as fotos
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  */
 
   function gerarRamdomValues() {
     let min = 0;
@@ -86,15 +73,6 @@
     }
   }
 
-/*
-function clickDois(numClick) {
-  if (numClick == 2) {
-    return true;
-  }
-  return false;
-}
-
-*/
 
   function exibirPosicoes() {
     stopClicks();
@@ -104,68 +82,9 @@ function clickDois(numClick) {
   }
 
   function segundoEstado() {
-    // exibir toda as imagens por um curto periodo de tempo
     exibirPosicoes();
     setTimeout(terceiroEstado, 2000);
   }
-
-  /*
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                avalia condição do jogo
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  */
-
-  /*
-  function clickFigura() {
-    let clicks = [];
-
-    $('.imagem').on("click", function() {
-      let id = $(this).attr('id');
-      clicks.push(id);
-
-      if (!clickDois(clicks.length)) {
-        setarInterface(id, posicoesImagens[id]);
-
-        console.log(id);
-      } else {
-        stopClicks();
-        condicaoDoJogo(clicks);
-        clicks = [];
-      }
-    })
-  }
-
-  */
-
-
-  /*
-  function condicaoDoJogo(clicks) {
-    if (posicoesImagens[clicks[0]] === posicoesImagens[clicks[1]]) {
-      reativaClicks();
-      return;
-    }
-
-    setTimeout(retornarEstado(clicks[0], clicks[1]), 2000);
-  }
-
-  function figuraCorreta() {
-    //clickFigura();
-    reativaClicks();
-  }
-
-  function figuraErrada(clicks) {
-    setTimeout(retornarEstado(clicks), 3000);
-     // será que vai ser o suficiente?
-  }
-
-  function retornarEstado(primeiro, segundo) {
-    setarInterface(primeiro, 8);
-    setarInterface(segundo, 8);
-    reativaClicks();
-    //clickFigura();
-  }
-
-  */
 
   function condicaoDoJogo(num1, num2) {
     if (posicoesImagens[num1] == posicoesImagens[num2]) {
@@ -185,12 +104,6 @@ function clickDois(numClick) {
     }
   }
 
-  /*
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                condição de fim de jogo
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  */
-
   function fimDeJogo() {
     jogadas++;
 
@@ -199,7 +112,6 @@ function clickDois(numClick) {
       alert("acabou o jogo em " + tempo + " segundos.");
       tabelaDeJogos.push(tempo);
       console.log(tabelaDeJogos);
-      //jogadas = 0;
     }
   }
 
@@ -207,13 +119,7 @@ function clickDois(numClick) {
     let millis = Date.now() - inicio;
     return Math.floor(millis/1000);
   }
-  /*
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                criação de componente
-  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  */
 
-  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
   function idNaoEstaDescartada(id) {
     if(idsDescartadas.length > 0){
@@ -221,17 +127,14 @@ function clickDois(numClick) {
         if(id == idsDescartadas[i]){
           return false;
         }
-      }  
+      }
     }
 
     return true;
   }
 
-  // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx TESTE PARA CONSERTO DO BUG xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
   criarPrimeiroEstado();
   let c1 = app.getComponente('c1');
-
 
   c1.clickImagem = function() {
     let clicks = [];
@@ -249,21 +152,10 @@ function clickDois(numClick) {
         console.log(clicks);
         if (clicks.length == 2) {
           stopClicks();
-          //setTimeout(condicaoDoJogo(clicks), 3000);
           condicaoDoJogo(clicks[0], clicks[1]);
           clicks = [];
         }
       }
-      /*
-      if (clickDois(clicks.length)) {
-        stopClicks();
-        condicaoDoJogo(clicks);
-        clicks = [];
-      } else {
-        console.log(id);
-      }
-
-      */
     })
   };
 
@@ -280,7 +172,6 @@ function clickDois(numClick) {
       gerarRamdomFotos();
       segundoEstado();
       reativaClicks();
-      //clickFigura();
     });
   }
 
