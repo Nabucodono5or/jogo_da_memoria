@@ -19,8 +19,8 @@
       i++;
       j++;
     }
-    $('#principal').append('<div id="rodape" class="container"><button id="btnExibirTabelaResultado" type="button" name="button" onclick="app.c1.ClickTabelaDeJogos()">Exibir tabela de resultados</button></div>');
-
+    $('#principal').append('<div class="container"><button id="btnExibirTabelaResultado" type="button" name="button" onclick="app.c1.ClickTabelaDeJogos()">Exibir tabela de resultados</button></div>');
+    $('#principal').append('<div id="rodape"></div>');    
     c1.clickComecarJogo();
   });
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -106,7 +106,7 @@
       console.log("click em tabela");
       if(tabelaDeJogos.length > 0){
         for(let i = 0; i < tabelaDeJogos.length; i++){
-          $('#rodape').append("<p> Jogo 1: " + tabelaDeJogos[i] + "segundos" + "<p>");
+          $('#rodape').append("<p class='jogos'> Jogo " + (i+1) + " : " + tabelaDeJogos[i] + " segundos" + "</p><br>");
         }
       }
     }
@@ -122,6 +122,7 @@
         c1.clickImagem();
       }
 
+      $('.jogos').remove();
       idsDescartadas = [];
       jogadas = 0;
       inicio = Date.now();

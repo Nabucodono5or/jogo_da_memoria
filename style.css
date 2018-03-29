@@ -45,3 +45,12 @@ button:hover{
 img {
   width: 125px;
 }
+
+#rodape {
+  width: 600px;
+  margin: 0px auto;
+}
+
+#rodape p{
+  text-align: center;
+}
