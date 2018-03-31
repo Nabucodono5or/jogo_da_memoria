@@ -63,7 +63,7 @@
         setarInterface(num1, 8);
         setarInterface(num2, 8);
         reativaClicks();
-      }, 2000);
+      }, 1500);
     }
   }
 
@@ -125,5 +125,4 @@
     });
   }
 })();
-
 //app.inicio();
